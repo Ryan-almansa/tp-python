@@ -1,43 +1,85 @@
-try:
-    N = int(input("Entrez un nombre entier positif : "))
+def calculer_moyenne_notes():
+    """mettre des notes et calculer la moyenne"""    
+    notes = [] 
+    print("Entrée des notes pour calculer")
+    print("Entrez les notes une par une. Tapez 'fin' (ou 'stop') pour terminer la saisie.")
 
-    if N < 1:
-        print("Entre un entier supérieur ou égal à 1.")
-    else:
-        somme_iterative = 0  
+    
+    while True:
+        entree = input("Note : ")        
+        if entree.lower() in ['fin', 'stop']:
+            break 
+        try:
+            note = float(entree)            
+            if 0 <= note <= 20:
+                notes.append(note) 
+                print(f"Note ajoutée  :  {note}")
+            else:
+                print("Note invalide. Veuillez entrer une note entre 0 et 20.")                
+        except ValueError:            
+            print("Erreur :Entre un nombre valide ou 'fin'.")    
+    print("\n Résultat")    
+    if not notes:
+        print("Aucune note n'a été saisie.Pas de moyenne.")
+    else:    
+        somme_notes = sum(notes)        
+        nombre_notes = len(notes)        
+        moyenne = somme_notes / nombre_notes        
+        print(f"Notes saisies : {notes}")
+        print(f"Total des notes : {somme_notes}")
+        print(f"Nombre de notes : {nombre_notes}")
+        print(f"La moyenne de la classe est : {moyenne:.2f}") 
+calculer_moyenne_notes()
 
-       
-        for i in range(1, N + 1):
-            somme_iterative = somme_iterative + i 
 
-        print(f"\nMéthode 1 : Boucle For ")
-        print(f"La somme des nombres de 1 à {N} est : {somme_iterative}")
+#*************version js**************
+function calculerMoyenneNotes() {
+    const notes = [];
+    let entree;
 
-except ValueError:
-    print("Erreur : s'il te plait entre un nombre entier.")
+    console.log("Entrée des notes pour calculer ");
+    console.log("Entre les notes une par une. Tapez 'fin' (ou 'stop') pour terminer la saisie.");
 
+    while (true) {
+        entree = prompt("Note (ou 'fin') : ");
+        
+        if (entree === null) {
+            entree = 'fin'; 
+        }
 
+        if (entree.toLowerCase() === 'fin' || entree.toLowerCase() === 'stop') {
+            break;
+        }
 
+        const note = parseFloat(entree);
+        
+        if (isNaN(note)) {
+            console.error("Erreur : Entre un nombre valide ou 'fin'.");
+            continue;
+        }
 
-
-#************version js**************
-function calculerSommeIterative() {
-    const input = prompt("Entrez un nombre entier positif (N) :");
-    const N = parseInt(input);
-    if (isNaN(N)) {
-        console.error("Erreur : s'il te plait entre un nombre entier.");
-        return;
+        if (note >= 0 && note <= 20) {
+            notes.push(note);
+            console.log(`Note ajoutée : ${note}`);
+        } else {
+            console.log("Note invalide. Veuillez entrer une note entre 0 et 20.");
+        }
     }
-    if (N < 1) {
-        console.log("Entre un entier supérieur ou égal à 1.");
-        return;
+
+    console.log("\n résultat");
+
+    if (notes.length === 0) {
+        console.log("Aucune note n'a été saisie. Pas de moyenne.");
+    } else {
+        const sommeNotes = notes.reduce((acc, current) => acc + current, 0);
+        const nombreNotes = notes.length;
+        const moyenne = sommeNotes / nombreNotes;
+
+        console.log(`Notes saisies : [${notes.join(', ')}]`);
+        console.log(`Total des notes : ${sommeNotes}`);
+        console.log(`Nombre de notes : ${nombreNotes}`);
+        console.log(`La moyenne de la classe est : ${moyenne.toFixed(2)}`);
     }
-    let somme_iterative = 0; 
-    for (let i = 1; i <= N; i++) {
-        somme_iterative += i; 
-    }
-    console.log("\nMéthode 1 : Boucle For ");
-    console.log(`La somme des nombres de 1 à ${N} est : ${somme_iterative}`);
 }
 
-calculerSommeIterative();
+calculerMoyenneNotes();
